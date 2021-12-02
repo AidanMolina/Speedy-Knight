@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PhysicsObject : MonoBehaviour
 {
-    protected Vector2 velocity;
+    public Vector2 velocity;
 
     public float minGroundNormalY = 0.65f;
     public float gravityModifier = 1f;
 
     protected Vector2 targetVelocity;
-    protected bool grounded;
+    public bool grounded;
     protected Vector2 groundNormal;
 
     protected ContactFilter2D contactFilter;

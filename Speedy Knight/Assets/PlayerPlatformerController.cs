@@ -65,9 +65,18 @@ public class PlayerPlatformerController : PhysicsObject
         bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < 0.01f));
         if(flipSprite){
             spriteRenderer.flipX = !spriteRenderer.flipX;
+            if(spriteRenderer.flipX == true){
+                boxCollider.offset = new Vector2(-0.5f, 0.5f);
+            }
+            else{
+                boxCollider.offset = new Vector2(0.5f, 0.5f);
+            }
         }
 
         animator.SetBool("grounded", grounded);
+        if(grounded){
+            jumpsLeft = 0;
+        }
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / currentSpeed);
         
         targetVelocity = move * currentSpeed;
