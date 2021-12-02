@@ -142,13 +142,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   gravityModifier: 1
-  maxSpeed: 7
-  jumpTakeOffSpeed: 7
+  jumpsLeft: 0
+  currentSpeed: 5
+  maxSpeed: 8
+  jumpTakeOffSpeed: 2.5
 --- !u!212 &8694863 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 212991655389708426, guid: e7fcecc826687024e9b52ec763b14088, type: 3}
   m_PrefabInstance: {fileID: 1630453366}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &8694865
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8694858}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.52245355, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6312089, y: 1}
+  m_EdgeRadius: 0
 --- !u!850595691 &244261233
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -2643,6 +2671,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cefdc9cb5c29254498f8928fb68d283c, type: 3}
+--- !u!1 &1218341325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1222806087177142, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
+  m_PrefabInstance: {fileID: 1975462692}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1218341326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218341325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3dd43af473cb014ebb969331d6f3432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 6
 --- !u!1 &1587748229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,17 +2946,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: DemoCrate
       objectReference: {fileID: 0}
+    - target: {fileID: 1222806087177142, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4237855052870848, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4237855052870848, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.41
+      value: -4.06
       objectReference: {fileID: 0}
     - target: {fileID: 4237855052870848, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.56
+      value: 3.71
       objectReference: {fileID: 0}
     - target: {fileID: 4237855052870848, guid: 6ccf0ce9da7c5894492f1dd3ccc8c9ee, type: 3}
       propertyPath: m_LocalPosition.z
