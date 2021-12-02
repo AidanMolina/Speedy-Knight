@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerPlatformerController : PhysicsObject
 {
-    public float maxSpeed = 7f;
-    public float jumpTakeOffSpeed = 7f;
+    public float currentSpeed = 5f;
+    public float maxSpeed = 10f;
+    public float jumpTakeOffSpeed = 3f;
+
+    bool ticked;
+    float tick = 0.5f;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -13,13 +17,33 @@ public class PlayerPlatformerController : PhysicsObject
     void Awake(){
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        ticked = false;
     }
 
     protected override void ComputeVelocity(){
         Vector2 move = Vector2.zero;
-        move.x = Input.GetAxis("Horizontal");
+        move.x = Input.GetAxis("Horizontal")/5 * currentSpeed;
+        if(Input.GetAxis("Horizontal") != 0 && ticked == false){
+            currentSpeed += 0.5f;
+            if(currentSpeed > maxSpeed){
+                currentSpeed = maxSpeed;
+            }
+            ticked = true;
+        }
+        if(ticked == true){
+            tick -= Time.deltaTime;
+            if(tick <= 0.0f){
+                ticked = false;
+                tick = 0.5f;
+            }
+        }
+
+        if(Input.GetAxis("Horizontal") == 0){
+            currentSpeed = 5f;
+        }
+
         if(Input.GetButtonDown("Jump") && grounded){
-            velocity.y = jumpTakeOffSpeed;
+            velocity.y = jumpTakeOffSpeed * currentSpeed/3;
         }
         else if(Input.GetButtonUp("Jump")){
             if(velocity.y > 0f){
@@ -33,9 +57,10 @@ public class PlayerPlatformerController : PhysicsObject
         }
 
         animator.SetBool("grounded", grounded);
-        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / currentSpeed);
         
-        targetVelocity = move * maxSpeed;
+        targetVelocity = move * currentSpeed;
+        Debug.Log(currentSpeed);
 
     }
 }
