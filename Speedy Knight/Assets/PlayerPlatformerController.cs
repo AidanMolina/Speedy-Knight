@@ -69,7 +69,7 @@ public class PlayerPlatformerController : PhysicsObject
                 boxCollider.offset = new Vector2(-0.5f, 0.5f);
             }
             else{
-                boxCollider.offset = new Vector2(0.5f, 0.5f);
+                boxCollider.offset = new Vector2(0.55f, 0.5f);
             }
         }
 
