@@ -12,8 +12,11 @@ public class PlayerPlatformerController : PhysicsObject
     public float maxSpeed = 8f;
     public float jumpTakeOffSpeed = 3f;
 
+    public float speedForJump;
+    public float jumpSpeedForJump;
+
     bool ticked;
-    float tick = 0.5f;
+    float tick = 0.35f;
 
     bool attacking;
     float attackTimer = 0.5f;
@@ -76,6 +79,9 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("grounded", grounded);
         if(grounded){
             jumpsLeft = 0;
+            speedForJump = currentSpeed;
+            jumpSpeedForJump = jumpTakeOffSpeed;
+            
         }
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / currentSpeed);
         

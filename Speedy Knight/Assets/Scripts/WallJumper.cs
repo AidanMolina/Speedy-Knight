@@ -42,8 +42,8 @@ public class WallJumper : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Player"){
             player = collider.gameObject.GetComponent<PlayerPlatformerController>();
-            speed = player.currentSpeed;
-            currentJump = player.jumpTakeOffSpeed * speed/3;
+            speed = player.speedForJump;
+            currentJump = player.jumpSpeedForJump * speed/3;
             if(player.jumpsLeft == 0){
                 player.jumpsLeft = speed/2;
             }
