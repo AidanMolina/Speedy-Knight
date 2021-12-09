@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerPlatformerController : PhysicsObject
 {
+    [SerializeField] GameObject canvas;
+
     int health = 3;
     public float jumpsLeft = 0f;
     float attackPower = 1f;
@@ -21,6 +23,9 @@ public class PlayerPlatformerController : PhysicsObject
     bool attacking;
     float attackTimer = 0.5f;
 
+    bool damaged;
+    float damageTimer = 0.5f;
+
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BoxCollider2D boxCollider;
@@ -31,12 +36,15 @@ public class PlayerPlatformerController : PhysicsObject
         boxCollider = GetComponent<BoxCollider2D>();
         ticked = false;
         attacking = false;
+        damaged = false;
     }
 
 
     protected override void ComputeVelocity(){
         Vector2 move = Vector2.zero;
-        move.x = Input.GetAxis("Horizontal")/5 * currentSpeed;
+        if(damaged == false){
+            move.x = Input.GetAxis("Horizontal")/5 * currentSpeed;
+        }
         if(Input.GetAxis("Horizontal") != 0 && ticked == false){
             currentSpeed += 0.5f;
             if(currentSpeed > maxSpeed){
@@ -102,12 +110,46 @@ public class PlayerPlatformerController : PhysicsObject
                 attackTimer = 0.5f;
             }
         }
+
+        if(damaged == true){
+            currentSpeed = 5;
+            damageTimer -= Time.deltaTime;
+            if(damageTimer <= 0.0f){
+                damaged = false;
+                damageTimer = 0.5f;
+            }
+        }
+
+        if(health <= 0){
+            gameObject.SetActive(false);
+            canvas.transform.GetChild(4).gameObject.SetActive(true);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag == "Enemy"){
             collider.gameObject.GetComponent<Enemy>().health -= attackPower * currentSpeed;
-            Debug.Log(collider.gameObject.GetComponent<Enemy>().health);
+        }
+        if(collider.gameObject.tag == "EndLevel"){
+            canvas.transform.GetChild(3).gameObject.SetActive(true);
+            gameObject.SetActive(false);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collider){
+        if(collider.gameObject.tag == "Enemy" && damaged == false){
+            health -= 1;
+            damaged = true;
+            Debug.Log(health);
+            CheckHealth();
+        }
+    }
+
+    void CheckHealth(){
+        for(int i = 0; i < 3; i++){
+            if(i > health - 1){
+                canvas.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 }
