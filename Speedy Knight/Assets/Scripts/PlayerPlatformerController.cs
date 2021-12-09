@@ -16,7 +16,7 @@ public class PlayerPlatformerController : PhysicsObject
     public float jumpSpeedForJump;
 
     bool ticked;
-    float tick = 0.35f;
+    float tick = 0.3f;
 
     bool attacking;
     float attackTimer = 0.5f;
@@ -84,6 +84,7 @@ public class PlayerPlatformerController : PhysicsObject
             
         }
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / currentSpeed);
+        animator.SetBool("attacking", attacking);
         
         targetVelocity = move * currentSpeed;
 
